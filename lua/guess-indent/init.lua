@@ -290,11 +290,36 @@ function M.set_from_buffer(context)
       end
     end
 
+    local valid_filetype = false
+    for _, ft in ipairs(config.filetype_include) do
+      if ft ~= filetype then
+        valid_filetype = true
+        break
+      end
+    end
+    if not valid_filetype then
+      utils.v_print(1, "Excluded because of filetype.")
+      return
+    end
+  end
+
     for _, bt in ipairs(config.buftype_exclude) do
       if bt == buftype then
         utils.v_print(1, "Excluded because of buftype.")
         return
       end
+    end
+
+    local valid_buftype = false
+    for _, bt in ipairs(config.buftype_include) do
+      if bt ~= buftype then
+        valid_buftype = true
+        break
+      end
+    end
+    if not valid_byftype then
+      utils.v_print(1, "Excluded because of buftype.")
+      return
     end
   end
 
